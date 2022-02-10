@@ -80,7 +80,6 @@ class WalletNotifierService
                     await outputFile.WriteAsync(accJson);
                 }
 
-                _logger.LogInformation("wallet " + wallet + ": " + fileIdentifier + ": change");
                 ret = fileIdentifier + " change" + "<br />";
                 if (fileIdentifier == "account")
                 {
@@ -89,6 +88,20 @@ class WalletNotifierService
                     Account? prev = JsonSerializer.Deserialize<Account>(t);
                     ret = FormatAccount(ret, prev!, "prev");
                 }
+                else if (fileIdentifier == "assets")
+                {
+                    ICollection<StakeAddressAddressesAssetsResponse>? prev = JsonSerializer.Deserialize<ICollection<StakeAddressAddressesAssetsResponse>>(t);
+                    ret += "<table><tr><th>quantity</th><th>policy id</th></tr>";
+                    foreach (StakeAddressAddressesAssetsResponse asset in prev!)
+                    {                        
+                        ret += "<tr><td>" + asset.Quantity + "</td><td><a href='https://cardanoscan.io/token/" + asset.Unit + "'>" + asset.Unit + "</a></td></tr>";
+                    }
+                    ret += "</table>";
+
+                    ICollection<StakeAddressAddressesAssetsResponse> acc2 = (ICollection<StakeAddressAddressesAssetsResponse>)acc;
+                }
+
+                _logger.LogInformation("wallet " + wallet + ": " + fileIdentifier + ": change");
             }
         }
         catch (NullReferenceException)
@@ -99,9 +112,8 @@ class WalletNotifierService
                 await outputFile.WriteAsync(accJson);
             }
 
-
-            _logger.LogWarning("wallet " + wallet + ": " + fileIdentifier + ": new");
             ret = fileIdentifier + " new";
+            _logger.LogWarning("wallet " + wallet + ": " + fileIdentifier + ": new");
         }
 
         return ret;
