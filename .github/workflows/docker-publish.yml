@@ -36,7 +36,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Replace tokens
+      - name: Replace APIKey token
         uses: cschleiden/replace-tokens@v1.1
         with:
           files: 'appsettings.json'
