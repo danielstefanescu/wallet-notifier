@@ -36,14 +36,48 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Replace APIKey token
+      - name: Replace BFI APIKey token
         uses: cschleiden/replace-tokens@v1.1
         with:
           files: 'appsettings.json'
         env:
           APIKey: ${{ secrets.APIKey }}
-
-
+      - name: Replace BFI network token
+        uses: cschleiden/replace-tokens@v1.1
+        with:
+          files: 'appsettings.json'
+        env:
+          APIKey: ${{ secrets.NETWORK }}        
+      - name: Replace FROM token
+        uses: cschleiden/replace-tokens@v1.1
+        with:
+          files: 'appsettings.json'
+        env:
+          APIKey: ${{ secrets.FROM }}   
+      - name: Replace TO token
+        uses: cschleiden/replace-tokens@v1.1
+        with:
+          files: 'appsettings.json'
+        env:
+          APIKey: ${{ secrets.TO }}                         
+      - name: Replace SUBJECT token
+        uses: cschleiden/replace-tokens@v1.1
+        with:
+          files: 'appsettings.json'
+        env:
+          APIKey: ${{ secrets.SUBJECT }}  
+      - name: Replace PASSWORD token
+        uses: cschleiden/replace-tokens@v1.1
+        with:
+          files: 'appsettings.json'
+        env:
+          APIKey: ${{ secrets.PASSWORD }}  
+      - name: Replace HOST token
+        uses: cschleiden/replace-tokens@v1.1
+        with:
+          files: 'appsettings.json'
+        env:
+          APIKey: ${{ secrets.HOST }}            
       # # Install the cosign tool except on PR
       # # https://github.com/sigstore/cosign-installer
       # - name: Install cosign
