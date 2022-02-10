@@ -39,7 +39,7 @@ jobs:
       - name: Replace tokens
         uses: cschleiden/replace-tokens@v1.1
         with:
-          files: '/home/runner/work/wallet-notifier/wallet-notifier/appsettings.json'
+          files: 'appsettings.json'
         env:
           APIKey: ${{ secrets.APIKey }}
 
