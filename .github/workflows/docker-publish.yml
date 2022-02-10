@@ -45,42 +45,10 @@ jobs:
           NETWORK: ${{ secrets.NETWORK }} 
           FROM: ${{ secrets.FROM }} 
           TO: ${{ secrets.TO }}  
-      - name: Replace BFI network token
-        uses: cschleiden/replace-tokens@v1.1
-        with:
-          files: 'appsettings.json'
-        env:
-          NETWORK: ${{ secrets.NETWORK }}        
-      - name: Replace FROM token
-        uses: cschleiden/replace-tokens@v1.1
-        with:
-          files: 'appsettings.json'
-        env:
-          FROM: ${{ secrets.FROM }}   
-      - name: Replace TO token
-        uses: cschleiden/replace-tokens@v1.1
-        with:
-          files: 'appsettings.json'
-        env:
-          APIKey: ${{ secrets.TO }}                         
-      - name: Replace SUBJECT token
-        uses: cschleiden/replace-tokens@v1.1
-        with:
-          files: 'appsettings.json'
-        env:
-          APIKey: ${{ secrets.SUBJECT }}  
-      - name: Replace PASSWORD token
-        uses: cschleiden/replace-tokens@v1.1
-        with:
-          files: 'appsettings.json'
-        env:
-          APIKey: ${{ secrets.PASSWORD }}  
-      - name: Replace HOST token
-        uses: cschleiden/replace-tokens@v1.1
-        with:
-          files: 'appsettings.json'
-        env:
-          APIKey: ${{ secrets.HOST }}            
+          SUBJECT: ${{ secrets.SUBJECT }}  
+          PASSWORD: ${{ secrets.PASSWORD }}  
+          HOST: ${{ secrets.HOST }}  
+         
       # # Install the cosign tool except on PR
       # # https://github.com/sigstore/cosign-installer
       # - name: Install cosign
