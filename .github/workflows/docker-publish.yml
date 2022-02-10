@@ -42,18 +42,21 @@ jobs:
           files: 'appsettings.json'
         env:
           APIKey: ${{ secrets.APIKey }}
+          NETWORK: ${{ secrets.NETWORK }} 
+          FROM: ${{ secrets.FROM }} 
+          TO: ${{ secrets.TO }}  
       - name: Replace BFI network token
         uses: cschleiden/replace-tokens@v1.1
         with:
           files: 'appsettings.json'
         env:
-          APIKey: ${{ secrets.NETWORK }}        
+          NETWORK: ${{ secrets.NETWORK }}        
       - name: Replace FROM token
         uses: cschleiden/replace-tokens@v1.1
         with:
           files: 'appsettings.json'
         env:
-          APIKey: ${{ secrets.FROM }}   
+          FROM: ${{ secrets.FROM }}   
       - name: Replace TO token
         uses: cschleiden/replace-tokens@v1.1
         with:
