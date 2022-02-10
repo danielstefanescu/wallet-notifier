@@ -41,9 +41,9 @@ jobs:
       - name: Replace tokens
         uses: cschleiden/replace-tokens@v1.1
         with:
-          tokenPrefix: '#{'
-          tokenSuffix: '}#'
-          files: # optional, default is #{
+          files: 'appsettings.json'
+        env:
+          APIKey: ${{ secrets.APIKey }}
 
 
       # Install the cosign tool except on PR
