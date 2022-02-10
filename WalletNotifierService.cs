@@ -86,19 +86,14 @@ class WalletNotifierService
                     Account acc2 = (Account)acc;
                     ret = FormatAccount(ret, acc2, "current");
                     Account? prev = JsonSerializer.Deserialize<Account>(t);
-                    ret = FormatAccount(ret, prev!, "prev");
+                    ret += FormatAccount(ret, prev!, "prev");
                 }
                 else if (fileIdentifier == "assets")
                 {
-                    ICollection<StakeAddressAddressesAssetsResponse>? prev = JsonSerializer.Deserialize<ICollection<StakeAddressAddressesAssetsResponse>>(t);
-                    ret += "<table><tr><th>quantity</th><th>policy id</th></tr>";
-                    foreach (StakeAddressAddressesAssetsResponse asset in prev!)
-                    {                        
-                        ret += "<tr><td>" + asset.Quantity + "</td><td><a href='https://cardanoscan.io/token/" + asset.Unit + "'>" + asset.Unit + "</a></td></tr>";
-                    }
-                    ret += "</table>";
-
                     ICollection<StakeAddressAddressesAssetsResponse> acc2 = (ICollection<StakeAddressAddressesAssetsResponse>)acc;
+                    ret = FormatAssets(ret, acc2!, "current");
+                    ICollection<StakeAddressAddressesAssetsResponse>? prev = JsonSerializer.Deserialize<ICollection<StakeAddressAddressesAssetsResponse>>(t);
+                    ret += FormatAssets(ret, prev!, "prev");                    
                 }
 
                 _logger.LogInformation("wallet " + wallet + ": " + fileIdentifier + ": change");
@@ -116,6 +111,18 @@ class WalletNotifierService
             _logger.LogWarning("wallet " + wallet + ": " + fileIdentifier + ": new");
         }
 
+        return ret;
+    }
+
+    private static string FormatAssets(string? ret, ICollection<StakeAddressAddressesAssetsResponse> prev, string accountType)
+    {
+        ret += "<br/><b>" + accountType + " acccount</b>:<br/>";
+        ret += "<table><tr><th>quantity</th><th>policy id</th></tr>";
+        foreach (StakeAddressAddressesAssetsResponse asset in prev!)
+        {
+            ret += "<tr><td>" + asset.Quantity + "</td><td><a href='https://cardanoscan.io/token/" + asset.Unit + "'>" + asset.Unit + "</a></td></tr>";
+        }
+        ret += "</table>";
         return ret;
     }
 
